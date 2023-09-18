@@ -32,6 +32,7 @@ const router = createBrowserRouter([
 const options = [
   {name: 'Santa Terezinha', value: 'stte'},
   {name: 'Perpétuo Socorro', value: 'prsc'},
+  {name: 'Aparecida', value: 'apr'},
 ];
 
 
