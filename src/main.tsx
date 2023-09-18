@@ -8,7 +8,6 @@ import 'react-select-search/style.css'
 
 import {
   BrowserRouter,
-  createBrowserRouter,
   Route,
   Routes,
 } from "react-router-dom";
