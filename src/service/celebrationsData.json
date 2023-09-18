@@ -1,0 +1,15 @@
+{
+  "version": "1.0",
+  "data" : [
+    {
+      "church" : "Perpétuo Socorro",
+      "celebrations" : [
+        {
+          "type": "normal",
+          "dayOfTheWeek": "Sunday",
+          "hour": "19:00"
+        }
+      ]
+    }
+  ]
+}
