@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald:400');
+@mixin flex {
+	display: flex;
+	justify-content: center;
+}
+
+html, body {
+	height: 100%;
+	overflow: hidden;
+}
+body {
+	@include flex;
+	align-items: center;
+	background: black;
+	color: red;
+	font: 5vw/1 'Oswald', sans-serif;
+}
+h1 {
+	@include flex;
+	align-items: flex-start;
+	position: relative;
+	letter-spacing:2rem;
+	-moz-animation: zoom 1s forwards ease-out;
+	-webkit-animation: zoom 1s forwards ease-out;
+	animation: zoom 1s forwards ease-out, squeeze 0.5s forwards ease-out 0.5s;
+}
+h1:after {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	content:"";
+	background: black;
+	z-index:100;
+	width: 100%;
+	height: 1.25vw;
+	-moz-border-radius: 50% 50% 0 0;
+	-webkit-border-radius: 50% 50% 0 0;
+	border-radius: 50% 50% 0 0;
+}
+
+span {
+	&:nth-child(1) {
+		font-size: 1.075em;
+		margin: 0;
+	}
+	&:nth-child(2) {
+		font-size: 1.025em;
+		margin: 0 .75vw;
+	}
+	&:nth-child(3) {
+		font-size: 1.025em;
+		margin: 0 1vw;
+	}
+	&:nth-child(4) {
+		font-size: 1.025em;
+		margin: 0 0.5vw;
+	}
+	&:nth-child(5) {
+		font-size: 1.025em;
+		margin: 0 1vw;
+	}
+	&:nth-child(6) {
+		font-size: 1.025em;
+		margin: 0 .25vw;
+	}
+	&:nth-child(7) {
+		font-size: 1.075em;
+		margin: 0 0.5vw 0 1.2vw;
+	}
+}
+
+@keyframes zoom {
+	0% {
+		-moz-transform: scale(3);
+		-webkit-transform: scale(3);
+		transform: scale(3);
+		-moz-filter: blur(10px);
+		-webkit-filter: blur(10px);
+		filter: blur(10px);
+		opacity: 0;
+	}
+	100% {
+		-moz-transform: scale(1);
+		-webkit-transform: scale(1);
+		transform: scale(1);
+		-moz-filter: blur(0);
+		-webkit-filter: blur(0);
+		filter: blur(0);
+		opacity: 1;
+	}
+}
+
+@keyframes squeeze {
+	100% {
+		letter-spacing:0;
+	}
+}

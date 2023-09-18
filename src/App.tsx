@@ -1,7 +1,12 @@
 import { useEffect } from 'react'
 import './App.css'
+import './assets/loading.css'
+import './assets/netflixLikeLogo.css'
 
 import { useNavigate } from 'react-router-dom';
+
+import { motion } from "framer-motion";
+
 
 function App() {
 
@@ -16,7 +21,27 @@ function App() {
   }, [navigate]);
 
   return (
-    <h1>Welcome to missaflix!</h1>
+    <>
+      <motion.main
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <h1>
+          <span>M</span>
+          <span>I</span>
+          <span>S</span>
+          <span>S</span>
+          <span>A</span>
+          <span>F</span>
+          <span>L</span>
+          <span>I</span>
+          <span>X</span>
+        </h1>
+        <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
+      </motion.main>
+    </>
   )
 }
 
