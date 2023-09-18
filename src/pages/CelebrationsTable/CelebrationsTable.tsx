@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -5,35 +6,43 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
 import { motion } from "framer-motion";
-
-
 import { AppBar, Toolbar, Typography, Box } from '@mui/material';
-
 import SelectSearch from 'react-select-search';
 
-
-const options = [
-  { name: 'Santa Terezinha', value: 'stte' },
-  { name: 'Perpétuo Socorro', value: 'prsc' },
-  { name: 'Aparecida', value: 'apr' },
-];
-
-function createData(
-  church: string,
-  dayOfTheWeek: string,
-  hour: string,
-  type: string,
-) {
-  return { church, dayOfTheWeek, hour, type };
-}
-
-const rows = [
-  createData("Perpétuo Socorro", "Domingo", "19:00", "Missa",),
-];
-
 export const CelebrationsTable = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    // Fetch the JSON data here
+      fetch('celebrationsData.json')
+      .then(response => response.json())
+      .then(data => {
+        setData(data.data);
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
+
+  const options = data.map(item => ({
+    name: item.church,
+    value: item.church.toLowerCase().replace(/\s/g, '-')
+  }));
+
+  const rows = data.flatMap(item =>
+    item.celebrations.map(celebration => (
+      createData(
+        item.church,
+        celebration.dayOfTheWeek,
+        celebration.hour,
+        celebration.type
+      )
+    ))
+  );
+
+  function createData(church, dayOfTheWeek, hour, type) {
+    return { church, dayOfTheWeek, hour, type };
+  }
+
   return (
     <>
       <motion.main
@@ -43,20 +52,14 @@ export const CelebrationsTable = () => {
         transition={{ duration: 0.5 }}
       >
         <Box sx={{ flexGrow: 1 }}>
-
           <AppBar position="static">
             <Toolbar>
-
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 MissaFlix
               </Typography>
-
               <SelectSearch options={options} placeholder="Todas as Igrejas" />
-
             </Toolbar>
           </AppBar>
-
-
         </Box>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -70,9 +73,9 @@ export const CelebrationsTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
+              {rows.map((row, index) => (
                 <TableRow
-                  key={row.dayOfTheWeek}
+                  key={index}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
@@ -87,8 +90,7 @@ export const CelebrationsTable = () => {
             </TableBody>
           </Table>
         </TableContainer>
-      </motion.main >
-
+      </motion.main>
     </>
   );
 }
